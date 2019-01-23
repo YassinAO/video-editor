@@ -30,3 +30,7 @@ for y in range(video_parts):
     video = (mp.VideoFileClip(file_path)
                .subclip((start_time[int(y)]), (end_time[int(y)])))
     video.write_videofile(new_filename)
+
+    # close the video to prevent 'OSError: [WinError 6] The handle is invalid'
+    video.reader.close()
+    video.audio.reader.close_proc()
