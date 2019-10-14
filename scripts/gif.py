@@ -17,10 +17,10 @@ def create_gif():
     # Give user the option to create a gif out of the video.
 
     file_path = input('Enter path to file: ')
-    os.system('cls')
 
     # Used to rename the new file to .gif
-    index = file_path.find('.mp4')
+    index= file_path.rsplit('\\', 1)[-1]  
+    new_filename = index.replace('.mp4', '.gif')
 
     start_time = int(input('Enter start time: '))
     end_time = int(input('Enter end time: '))
@@ -30,8 +30,6 @@ def create_gif():
             .resize(1)
             .fx(time_symetrize))  # Returns the clip played forward then backwards
 
-    new_filename = file_path[:index] + '.gif'
     final_gif = mp.CompositeVideoClip([video])
-
-    final_gif.write_gif(new_filename)
+    final_gif.write_gif('assets/gifs/' + new_filename)
     
