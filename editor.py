@@ -36,7 +36,7 @@ def menu_option():
 
     # Give user the option to concatenate multiple videos.
     elif select_option == '5':
-        concatenate.merge()
+        concatenate.create_merge()
     else:
         print('Select one of the options given.')
         menu_option()

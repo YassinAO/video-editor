@@ -1,7 +1,6 @@
 '''
 This function gives you the possibility to 
 concatenate multiple videos.
-
 '''
 
 import os
@@ -9,8 +8,7 @@ import moviepy.editor as mp
 
 videos = []
 
-def merge():
-
+def create_merge():
     while True:
         try:
             video_amount = int(input('Enter amount of videos: '))
@@ -18,7 +16,6 @@ def merge():
         except ValueError:
             os.system('cls')
             print('Invalid input')
-            
     num = 0
     for _ in range(int(video_amount)):
         num += 1
