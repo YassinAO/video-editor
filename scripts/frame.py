@@ -22,5 +22,5 @@ def create_frames():
         # Create an image from a frame every 1/10 of a second.
         currentframe += 0.10
         framename += 1
-        video.save_frame('./assets/frames/image' + str(framename) +'.jpg', t=currentframe)
+        video.save_frame('assets/frames/image' + str(framename) +'.jpg', t=currentframe)
         print('Creating image from frame ' + str(round(currentframe, 2)))

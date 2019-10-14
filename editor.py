@@ -19,6 +19,7 @@ def menu_option():
     # Give user the option to customize and position the watermark on the video.
     elif select_option == '2':
         watermark.customize()
+        
     # Give user the option to export video frames to images.
     elif select_option == '3':
         frame.create_frames()

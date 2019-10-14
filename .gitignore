@@ -2,3 +2,6 @@ env/
 .vscode/
 __pycache__/
 frames/
+gifs/
+images/
+videos/
