@@ -61,5 +61,5 @@ def create_watermark(first_position, second_position):
     final_video = mp.CompositeVideoClip([video, watermark])
 
     # Write the result to a file (many options available!)
-    final_video.write_videofile('./assets/videos/' + new_filename)  # quality can be raised by using: bitrate="20000k"
+    final_video.write_videofile(new_filename)  # quality can be raised by using: bitrate="20000k"
     

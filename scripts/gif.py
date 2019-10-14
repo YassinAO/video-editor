@@ -3,6 +3,8 @@ This function gives you the possibility to
 create a gif from a video, by giving a start and end time.
 
 TODO Change gif size within commandline instead of source code.
+
+TODO Time input needs to be made easier. 
 '''
 
 import moviepy.editor as mp
@@ -31,5 +33,5 @@ def create_gif():
     new_filename = file_path[:index] + '.gif'
     final_gif = mp.CompositeVideoClip([video])
 
-    final_gif.write_gif('./assets/gifs/' + new_filename)
+    final_gif.write_gif(new_filename)
     
