@@ -1,16 +1,22 @@
-from scripts import gif, split, watermark, frame
+from scripts import gif, split, watermark, frame, concatenate
 import os
 
 def menu_option():
-
-    select_option = input('''
-    Select one of the options below.\n
-        1 = Create a gif out of the video
-        2 = Add a watermark to the video
-        3 = Export video frames to images
-        4 = Split video into multiple parts
-    ''')
     os.system('cls')
+    select_option = input('''
+     ------------------------------------------------
+    |   Select one of the options below.             |
+    |                                                |
+    |   1 = Create a gif out of the video            |
+    |   2 = Add a watermark to the video             |
+    |   3 = Export video frames to images            |
+    |   4 = Split video into multiple parts          |
+    |   5 = Concatenate videos                       |
+    |                                                |
+    |   NOTE: curently only .mp4 extension support,  |
+    |   more will be added in the future!            |  
+     ------------------------------------------------                                             
+    ''')
 
     # Give user the option to create a gif out of the video.
     if select_option == '1':
@@ -27,6 +33,10 @@ def menu_option():
     # Give user the option to split the video into multiple parts.
     elif select_option == '4':
         split.create_split()
+
+    # Give user the option to concatenate multiple videos.
+    elif select_option == '5':
+        concatenate.merge()
     else:
         print('Select one of the options given.')
         menu_option()
