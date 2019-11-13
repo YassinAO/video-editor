@@ -1,10 +1,6 @@
 '''
 This function gives you the possibility to 
 create a gif from a video, by giving a start and end time.
-
-TODO Change gif size within commandline instead of source code.
-
-TODO Time input needs to be made easier. 
 '''
 
 import moviepy.editor as mp
@@ -15,6 +11,14 @@ def time_symetrize(video_clip):
 
 def create_gif():
     # Give user the option to create a gif out of the video.
+
+    gif_size = float(input('''
+    Enter size of gif\n
+    Make sure to enter a number between the following ranges!
+    0.1 - 0.3 = small size
+    0.4 - 0.7 = medium size 
+    0.8 - 1.0 = large size
+    '''))
 
     file_path = input('Enter path to file: ')
 
@@ -27,7 +31,7 @@ def create_gif():
 
     video = (mp.VideoFileClip(file_path)
             .subclip(start_time, end_time)
-            .resize(1)
+            .resize(gif_size)
             .fx(time_symetrize))  # Returns the clip played forward then backwards
 
     final_gif = mp.CompositeVideoClip([video])
