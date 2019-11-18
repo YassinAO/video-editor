@@ -35,5 +35,4 @@ def create_gif():
             .fx(time_symetrize))  # Returns the clip played forward then backwards
 
     final_gif = mp.CompositeVideoClip([video])
-    final_gif.write_gif('assets/gifs/' + new_filename)
-    
+    final_gif.write_gif(f'assets/gifs/{new_filename}')

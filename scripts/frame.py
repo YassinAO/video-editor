@@ -5,8 +5,6 @@ export frames from a video and save them in your directory.
 TODO Use every frame of the video for a reverse image search.
 
 TODO Enter a  start and endtime within the commandline of which the frames should be extracted from.
-
-TODO Make use of multi processing to speed up the process.
 '''
 
 import os
@@ -29,7 +27,7 @@ def create_frames():
             # Create an image from a frame every 1/10 of a second.
             frametime += 0.10
             framenumber += 1
-            video.save_frame('assets/frames/' + new_filename + '-' + str(framenumber) +'.jpg', t=frametime)
+            video.save_frame(f'assets/frames/{new_filename}-{framenumber}.jpg', t=frametime)
             print('Creating image from frame ' + str(round(frametime, 2)))
     except:
         print('Process ended!')
