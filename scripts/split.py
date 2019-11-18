@@ -3,8 +3,6 @@ This function gives you the possibility to
 split videos into multiple parts.
 
 TODO Fix OSError: [WinError 6] The handle is invalid.
-
-TODO Make use of multi processing to speed up the process.
 '''
 
 import moviepy.editor as mp
@@ -28,7 +26,7 @@ def create_split():
     end_time = []
 
     # This loop appends the total time of each video part to the start_time and end_time array
-    for x in range(video_parts):
+    for _ in range(int(video_parts)):
         part_duration += time_per_part
         start_time.append(round(part_duration, 2))
         end_time.append(round(part_duration, 2))
@@ -37,12 +35,12 @@ def create_split():
     del start_time[-1]
 
     # Give each video part a start and end time with the values that are stored in their arrays
-    for y in range(video_parts):
-        new_filename = 'part-' + str(y + 1) + index
+    for part in range(int(video_parts)):
+        new_filename = f'part-{part}-{index}'
 
-        video = (mp.VideoFileClip(file_path)
-                .subclip((start_time[int(y)]), (end_time[int(y)])))
-        video.write_videofile(new_filename)
+        # video = (mp.VideoFileClip(file_path)
+        #         .subclip((start_time[int(part)]), (end_time[int(part)])))
+        # video.write_videofile(new_filename)
 
         # close the video to prevent 'OSError: [WinError 6] The handle is invalid'
         # video.reader.close()

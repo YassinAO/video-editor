@@ -2,8 +2,6 @@
 This function gives you the possibility to 
 add a watermark to the imported videos, positions and size of 
 the watermark can be changed within the code
-
-TODO Change size within commandline instead of source code.
 '''
 
 import moviepy.editor as mp
@@ -43,6 +41,13 @@ def customize():
 def create_watermark(first_position, second_position):
     # Give user the option to customize and position the watermark on the video.
 
+    watermark_size = float(input('''
+    Enter size of watermark\n
+    Make sure to enter a number between the following ranges!
+    0.1 - 0.3 = small size
+    0.4 - 0.7 = medium size 
+    0.8 - 1.0 = large size
+    '''))
     file_path = input('Enter path to file: ')
 
     # Used to rename the new file
@@ -53,7 +58,7 @@ def create_watermark(first_position, second_position):
     
     watermark = (mp.ImageClip('assets/watermark/watermark.png')
                .set_duration(video.duration)
-               .resize(0.4)
+               .resize(watermark_size)
                .margin(right=8, bottom=8, opacity=0)
                .set_pos((first_position, second_position)))
 
@@ -61,4 +66,4 @@ def create_watermark(first_position, second_position):
     final_video = mp.CompositeVideoClip([video, watermark])
 
     # Write the result to a file (many options available!)
-    final_video.write_videofile('assets/videos/' + new_filename)  # quality can be raised by using: bitrate="20000k"
+    final_video.write_videofile(f'assets/videos/{new_filename}')  # quality can be raised by using: bitrate="20000k"

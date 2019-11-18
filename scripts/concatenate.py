@@ -30,4 +30,4 @@ def create_merge():
     new_filename= 'merged-' + index
 
     final_clip = mp.concatenate_videoclips(videos, method='compose')
-    final_clip.write_videofile('assets/videos/' + new_filename)
+    final_clip.write_videofile(f'assets/videos/{new_filename}')
