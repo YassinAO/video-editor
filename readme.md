@@ -24,3 +24,8 @@ $ python editor.py
 * Create gif out of video timeframes
 * Split video into multiple parts   
 * Concatenate videos
+
+## Future functionalities
+* Reverse image search
+* Change video file extension
+* Add text to gif

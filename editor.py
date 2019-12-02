@@ -1,3 +1,7 @@
+'''
+TODO Make use of multi processing to speed up the process.
+'''
+
 from scripts import gif, split, watermark, frame, concatenate
 import os
 
