@@ -2,7 +2,7 @@
 TODO Make use of multi processing to speed up the process.
 '''
 
-from scripts import gif, split, watermark, frame, concatenate
+from scripts import gif, split, watermark, frame, concatenate, convert
 import os
 
 def menu_option():
@@ -16,9 +16,7 @@ def menu_option():
     |   3 = Export video frames to images            |
     |   4 = Split video into multiple parts          |
     |   5 = Concatenate videos                       |
-    |                                                |
-    |   NOTE: curently only .mp4 extension support,  |
-    |   more will be added in the future!            |  
+    |   6 = Convert video extension                  |
      ------------------------------------------------                                             
     ''')
 
@@ -41,6 +39,11 @@ def menu_option():
     # Give user the option to concatenate multiple videos.
     elif select_option == '5':
         concatenate.create_merge()
+    
+    # Give user the option to convert the video extension.
+    elif select_option == '6':
+        convert.convert_video()
+
     else:
         print('Select one of the options given.')
         menu_option()
