@@ -8,17 +8,17 @@ import os
 def menu_option():
     os.system('cls')
     select_option = input('''
-     ------------------------------------------------
-    |   Select one of the options below.             |
-    |                                                |
-    |   1 = Create a gif out of the video            |
-    |   2 = Add a watermark to the video             |
-    |   3 = Export video frames to images            |
-    |   4 = Split video into multiple parts          |
-    |   5 = Concatenate videos                       |
-    |   6 = Convert video extension                  |
-     ------------------------------------------------                                             
-    ''')
+ ------------------------------------------------
+|   Select one of the options below.             |
+|                                                |
+|   1 = Create a gif out of the video            |
+|   2 = Add a watermark to the video             |
+|   3 = Export video frames to images            |
+|   4 = Split video into multiple parts          |
+|   5 = Concatenate videos                       |
+|   6 = Convert video extension                  |
+ ------------------------------------------------                                                 
+''')
 
     # Give user the option to create a gif out of the video.
     if select_option == '1':
@@ -26,7 +26,7 @@ def menu_option():
 
     # Give user the option to customize and position the watermark on the video.
     elif select_option == '2':
-        watermark.customize()
+        watermark.create_watermark()
         
     # Give user the option to export video frames to images.
     elif select_option == '3':

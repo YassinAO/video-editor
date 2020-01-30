@@ -19,7 +19,7 @@ def create_merge():
     num = 0
     for _ in range(int(video_amount)):
         num += 1
-        file_path = input('Enter path to file ' + str(num) + ': ')
+        file_path = input('Enter full path to file ' + str(num) + ': ')
 
         if os.path.exists(file_path):
             videos.append(mp.VideoFileClip(file_path))
@@ -30,4 +30,5 @@ def create_merge():
     new_filename= 'merged-' + index
 
     final_clip = mp.concatenate_videoclips(videos, method='compose')
+
     final_clip.write_videofile(f'assets/videos/{new_filename}')

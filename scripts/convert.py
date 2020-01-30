@@ -6,7 +6,7 @@ convert the extension of a video file.
 import os
 
 def convert_video():
-    file_path = input('Enter path to file: ')
+    file_path = input('Enter full path to file: ')
     old_filename = file_path.rsplit('\\', 1)[-1]
     old_extension = os.path.splitext(file_path)[1]
     new_filename = old_filename.replace(old_extension, '')
@@ -15,12 +15,12 @@ def convert_video():
 
     while True:
         new_extension = input('''
-        Enter one of the supported extensions:
-        .mp4
-        .mkv
-        .mov
-        .avi
-        ''')
+currently supported extensions
+.mp4
+.mkv
+.mov
+.avi
+Enter preferred extension: ''')
 
         if new_extension in extension_support:
             converter = os.system(f'ffmpeg -i {file_path} -codec copy assets/videos/{new_filename}{new_extension}')

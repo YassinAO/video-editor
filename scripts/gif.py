@@ -12,15 +12,15 @@ def time_symetrize(video_clip):
 def create_gif():
     # Give user the option to create a gif out of the video.
 
+    file_path = input('Enter full path to file: ')
+    
     gif_size = float(input('''
-    Enter size of gif\n
-    Make sure to enter a number between the following ranges!
-    0.1 - 0.3 = small size
-    0.4 - 0.7 = medium size 
-    0.8 - 1.0 = large size
-    '''))
-
-    file_path = input('Enter path to file: ')
+Gif size ranges
+Make sure to enter ONE number between the following ranges!
+0.1 - 0.3 = small size
+0.4 - 0.7 = medium size 
+0.8 - 1.0 = large size
+Enter size of gif: '''))
 
     # Used to rename the new file to .gif
     index= file_path.rsplit('\\', 1)[-1]  
@@ -35,4 +35,5 @@ def create_gif():
             .fx(time_symetrize))  # Returns the clip played forward then backwards
 
     final_gif = mp.CompositeVideoClip([video])
+
     final_gif.write_gif(f'assets/gifs/{new_filename}')
