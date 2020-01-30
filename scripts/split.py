@@ -6,12 +6,27 @@ TODO Fix OSError: [WinError 6] The handle is invalid.
 '''
 
 import moviepy.editor as mp
+import os
 
 def create_split():
-    # Give user the option to split the video into multiple parts.
+    file_path = input('Enter full path to file: ')
+    red_text  = '\033[31m'
+    white_text = '\033[0m'
 
-    file_path = input('Enter path to file: ')
-    video_parts = int(input('Enter amount of video parts: '))
+    if os.path.isfile(file_path):
+        pass
+    else:
+        os.system('cls')
+        print(f'{red_text}File doesn\'t exist in this directory!{white_text}')
+        create_split()
+
+    while True:
+        try:
+            video_parts = int(input('Enter amount of video parts: '))
+            break
+        except ValueError:
+            os.system('cls')
+            print(f'{red_text}Input is invalid!{white_text}')
 
     # Used to rename the video parts (removes everything before the last forwardslash)
     index= file_path.rsplit('\\', 1)[-1]   
@@ -38,10 +53,10 @@ def create_split():
     for part in range(int(video_parts)):
         new_filename = f'part-{part}-{index}'
 
-        # video = (mp.VideoFileClip(file_path)
-        #         .subclip((start_time[int(part)]), (end_time[int(part)])))
-        # video.write_videofile(new_filename)
+        video = (mp.VideoFileClip(file_path)
+                .subclip((start_time[int(part)]), (end_time[int(part)])))
+        video.write_videofile(new_filename)
 
         # close the video to prevent 'OSError: [WinError 6] The handle is invalid'
-        # video.reader.close()
-        # video.audio.reader.close_proc()
+        video.reader.close()
+        video.audio.reader.close_proc()

@@ -8,18 +8,22 @@ import moviepy.editor as mp
 
 videos = []
 
-def create_merge():
+def create_concatenation():
+    red_text  = '\033[31m'
+    white_text = '\033[0m'
+    
     while True:
         try:
             video_amount = int(input('Enter amount of videos: '))
             break
         except ValueError:
             os.system('cls')
-            print('Invalid input')
+            print(f'{red_text}Input is invalid!{white_text}')
+
     num = 0
     for _ in range(int(video_amount)):
         num += 1
-        file_path = input('Enter path to file ' + str(num) + ': ')
+        file_path = input('Enter full path to file ' + str(num) + ': ')
 
         if os.path.exists(file_path):
             videos.append(mp.VideoFileClip(file_path))
@@ -30,4 +34,5 @@ def create_merge():
     new_filename= 'merged-' + index
 
     final_clip = mp.concatenate_videoclips(videos, method='compose')
+
     final_clip.write_videofile(f'assets/videos/{new_filename}')

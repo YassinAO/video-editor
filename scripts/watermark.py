@@ -1,54 +1,74 @@
 '''
 This function gives you the possibility to 
-add a watermark to the imported videos, positions and size of 
-the watermark can be changed within the code
+add a watermark to the imported videos. 
+The user can choose the preferred position and size of the watermark.
+
+TODO: Let the user import their own watermark.
 '''
 
 import moviepy.editor as mp
 import os
 
-def customize():
-    success = False
-    while not success:
+def create_watermark():
+    file_path = input('Enter full path to file: ')
+    size_support = ['small', 'medium', 'large']
+    position_support = ['bottom-right', 'bottom-left', 'top-right', 'top-left']
+    red_text  = '\033[31m'
+    white_text = '\033[0m'
+
+    if os.path.isfile(file_path):
+        pass
+    else:
+        os.system('cls')
+        print(f'{red_text}File doesn\'t exist in this directory!{white_text}')
+        create_watermark()
+
+    while True:
         watermark_position = input('''
-    Select position of watermark\n
-    1 = Bottom Right (default)
-    2 = Bottom Left
-    3 = Top Right
-    4 = Top Left
-    ''')
+currently supported positions
+bottom-right
+bottom-left
+top-right
+top-left
+Enter preferred position: ''')
 
-        if watermark_position == '1' or '2' or '3' or '4':
-            success = True
-        if watermark_position == '1':
-            first_position = 'right'
-            second_position = 'bottom'
-        elif watermark_position == '2':
-            first_position = 'left'
-            second_position = 'bottom'
-        elif watermark_position == '3':
-            first_position = 'right'
-            second_position = 'top'
-        elif watermark_position == '4':
-            first_position = 'left'
-            second_position = 'top'
+        if watermark_position in position_support:
+            if watermark_position == 'bottom-right':
+                first_position = 'right'
+                second_position = 'bottom'
+            elif watermark_position == 'bottom-left':
+                first_position = 'left'
+                second_position = 'bottom'
+            elif watermark_position == 'top-right':
+                first_position = 'right'
+                second_position = 'top'
+            elif watermark_position == 'top-left':
+                first_position = 'left'
+                second_position = 'top'
+            break
         else: 
-            print('Select one of the options given.')
+            os.system('cls')
+            print(f'{red_text}Choose one of the supported positions!{white_text}')
 
-    create_watermark(first_position, second_position)
+    while True:
+        watermark_size = (input('''
+currently supported sizes
+small
+medium
+large
+Enter preferred size: '''))
 
-
-def create_watermark(first_position, second_position):
-    # Give user the option to customize and position the watermark on the video.
-
-    watermark_size = float(input('''
-    Enter size of watermark\n
-    Make sure to enter a number between the following ranges!
-    0.1 - 0.3 = small size
-    0.4 - 0.7 = medium size 
-    0.8 - 1.0 = large size
-    '''))
-    file_path = input('Enter path to file: ')
+        if watermark_size in size_support:
+            if watermark_size == 'small':
+                watermark_size = 0.3
+            elif watermark_size == 'medium':
+                watermark_size = 0.5
+            elif watermark_size == 'large':
+                watermark_size = 0.7
+            break
+        else:
+            os.system('cls')
+            print(f'{red_text}Choose one of the supported sizes!{white_text}')
 
     # Used to rename the new file
     index= file_path.rsplit('\\', 1)[-1]   

@@ -11,8 +11,17 @@ import os
 import moviepy.editor as mp
 
 def create_frames():
-        
-    file_path = input('Enter path to file: ')
+    file_path = input('Enter full path to file: ')
+    red_text  = '\033[31m'
+    white_text = '\033[0m'
+
+    if os.path.isfile(file_path):
+        pass
+    else:
+        os.system('cls')
+        print(f'{red_text}File doesn\'t exist in this directory!{white_text}')
+        create_frames()
+
     video = (mp.VideoFileClip(file_path))
 
     # Used to rename the new file
@@ -27,7 +36,8 @@ def create_frames():
             # Create an image from a frame every 1/10 of a second.
             frametime += 0.10
             framenumber += 1
+
             video.save_frame(f'assets/frames/{new_filename}-{framenumber}.jpg', t=frametime)
             print('Creating image from frame ' + str(round(frametime, 2)))
     except:
-        print('Process ended!')
+        print(f'{red}Process ended!{white}')
