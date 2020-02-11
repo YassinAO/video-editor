@@ -14,6 +14,7 @@ def time_symetrize(video_clip):
 def create_gif():
     file_path = input('Enter full path to file: ')
     size_support = ['small', 'medium', 'large']
+    type_support = ['normal', 'loop']
     red_text  = '\033[31m'
     white_text = '\033[0m'
 
@@ -53,15 +54,32 @@ Enter preferred size: ''')
             os.system('cls')
             print(f'{red_text}Start or end time is invalid!{white_text}')
 
+    while True:
+        gif_type = input('''
+currently supported types
+normal
+loop
+Enter preferred type: ''')
+
+        if gif_type in type_support:
+            if gif_type == 'normal':
+                video = (mp.VideoFileClip(file_path)
+                        .subclip(start_time, end_time)
+                        .resize(gif_size))
+
+            elif gif_type == 'loop':
+                video = (mp.VideoFileClip(file_path)
+                        .subclip(start_time, end_time)
+                        .resize(gif_size)
+                        .fx(time_symetrize))
+            break
+        else:
+            os.system('cls')
+            print(f'{red_text}Choose one of the supported types!{white_text}')
+
     # Used to rename the new file to .gif
     index = file_path.rsplit('\\', 1)[-1]  
     new_filename = index.replace('.mp4', '.gif')
 
-    video = (mp.VideoFileClip(file_path)
-            .subclip(start_time, end_time)
-            .resize(gif_size)
-            .fx(time_symetrize))
-
     final_gif = mp.CompositeVideoClip([video])
-    
     final_gif.write_gif(f'assets/gifs/{new_filename}')
