@@ -2,11 +2,12 @@
 TODO Make use of multi processing to speed up the process.
 '''
 
-from scripts import gif, split, watermark, frame, concatenate, convert
+from scripts.video import gif, split, watermark, frame, concatenate, convert
+from scripts.audio import export, manipulate, replace
 import os
 
 def menu_option():
-    red_text  = '\033[31m'
+    red_text = '\033[31m'
     white_text = '\033[0m'
 
     select_option = input('''
@@ -19,6 +20,9 @@ def menu_option():
 |   4 = Split video into multiple parts          |
 |   5 = Concatenate videos                       |
 |   6 = Convert video extension                  |
+|   7 = Increase or decrease audio volume        |
+|   8 = Replace audio                            |
+|   9 = Export audio to mp3                      |
  ------------------------------------------------                                                 
 Enter preferred option: ''')
 
@@ -46,6 +50,16 @@ Enter preferred option: ''')
     elif select_option == '6':
         convert.create_convertion()
 
+    # Give user the option to increase or decrease the audio.
+    elif select_option == '7':
+        manipulate.manipulate_audio()
+    # Give user the option to replace the audio.
+    elif select_option == '8':
+        replace.replace_audio()
+
+    # Give user the option to export audio to mp3 file.
+    elif select_option == '9':
+       export.export_audio()
     else:
         os.system('cls')
         print(f'{red_text}Select one of the options from the menu!{white_text}')

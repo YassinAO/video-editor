@@ -10,17 +10,24 @@ import moviepy.editor as mp
 import os
 
 def create_watermark():
-    file_path = input('Enter full path to file: ')
+    video_file_path = input('Enter full path to video file: ')
     size_support = ['small', 'medium', 'large']
     position_support = ['bottom-right', 'bottom-left', 'top-right', 'top-left']
     red_text  = '\033[31m'
     white_text = '\033[0m'
+    green_text = '\033[92m'
 
-    if os.path.isfile(file_path):
-        pass
+    # Make sure that the user provides a video file.
+    if os.path.isfile(video_file_path):
+        if video_file_path.lower().endswith(('.mp4', '.mkv', '.mov')):
+            print(f'{green_text}Video file has been found!{white_text}')
+        else:
+            os.system('cls')
+            print(f'{red_text}File isn\'t a video extension! (e.g.) .mp4 .mkv .mov{white_text}')
+            create_watermark()   
     else:
         os.system('cls')
-        print(f'{red_text}File doesn\'t exist in this directory!{white_text}')
+        print(f'{red_text}Video file doesn\'t exist in this directory!{white_text}')
         create_watermark()
 
     while True:
@@ -51,12 +58,12 @@ Enter preferred position: ''')
             print(f'{red_text}Choose one of the supported positions!{white_text}')
 
     while True:
-        watermark_size = (input('''
+        watermark_size = input('''
 currently supported sizes
 small
 medium
 large
-Enter preferred size: '''))
+Enter preferred size: ''')
 
         if watermark_size in size_support:
             if watermark_size == 'small':
@@ -71,10 +78,10 @@ Enter preferred size: '''))
             print(f'{red_text}Choose one of the supported sizes!{white_text}')
 
     # Used to rename the new file
-    index= file_path.rsplit('\\', 1)[-1]   
+    index= video_file_path.rsplit('\\', 1)[-1]   
     new_filename = 'watermarked-' + index
     
-    video = mp.VideoFileClip(file_path)
+    video = mp.VideoFileClip(video_file_path)
     
     watermark = (mp.ImageClip('assets/watermark/watermark.png')
                .set_duration(video.duration)

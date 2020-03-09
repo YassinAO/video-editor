@@ -26,13 +26,15 @@ $ python editor.py
 ```
 
 ## Current functionalities
-* Add a watermark to video
+* Add watermark to video
 * Export video frames to images
 * Create gif out of video timeframes
 * Split video into multiple parts (Currently only working on linux)
 * Concatenate videos
 * Convert video extension
+* Manipulate audio volume
+* Replace audio
+* export audio to mp3 file
 
 ## Future functionalities
-* Reverse image search
 * Add text to gif

@@ -9,15 +9,22 @@ import moviepy.editor as mp
 import os
 
 def create_split():
-    file_path = input('Enter full path to file: ')
+    video_file_path = input('Enter full path to video file: ')
     red_text  = '\033[31m'
     white_text = '\033[0m'
+    green_text = '\033[92m'
 
-    if os.path.isfile(file_path):
-        pass
+    # Make sure that the user provides a video file.
+    if os.path.isfile(video_file_path):
+        if video_file_path.lower().endswith(('.mp4', '.mkv', '.mov')):
+            print(f'{green_text}Video file has been found!{white_text}')
+        else:
+            os.system('cls')
+            print(f'{red_text}File isn\'t a video extension! (e.g.) .mp4 .mkv .mov{white_text}')
+            create_split()   
     else:
         os.system('cls')
-        print(f'{red_text}File doesn\'t exist in this directory!{white_text}')
+        print(f'{red_text}Video file doesn\'t exist in this directory!{white_text}')
         create_split()
 
     while True:
@@ -29,10 +36,10 @@ def create_split():
             print(f'{red_text}Input is invalid!{white_text}')
 
     # Used to rename the video parts (removes everything before the last forwardslash)
-    index= file_path.rsplit('\\', 1)[-1]   
+    index= video_file_path.rsplit('\\', 1)[-1]   
 
     # Calculate the total time of each video part.
-    video = (mp.VideoFileClip(file_path))
+    video = (mp.VideoFileClip(video_file_path))
     time_per_part = video.duration / video_parts
 
     # Store the begin and end time of each video part
@@ -53,7 +60,7 @@ def create_split():
     for part in range(int(video_parts)):
         new_filename = f'part-{part}-{index}'
 
-        video = (mp.VideoFileClip(file_path)
+        video = (mp.VideoFileClip(video_file_path)
                 .subclip((start_time[int(part)]), (end_time[int(part)])))
         video.write_videofile(new_filename)
 
