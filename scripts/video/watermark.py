@@ -2,33 +2,20 @@
 This function gives you the possibility to 
 add a watermark to the imported videos. 
 The user can choose the preferred position and size of the watermark.
-
-TODO: Let the user import their own watermark.
 '''
 
 import moviepy.editor as mp
+from scripts import style
 import os
 
-def create_watermark():
-    video_file_path = input('Enter full path to video file: ')
+
+def create_watermark(video_file_path, watermark_file_path):
     size_support = ['small', 'medium', 'large']
     position_support = ['bottom-right', 'bottom-left', 'top-right', 'top-left']
-    red_text  = '\033[31m'
-    white_text = '\033[0m'
-    green_text = '\033[92m'
-
-    # Make sure that the user provides a video file.
-    if os.path.isfile(video_file_path):
-        if video_file_path.lower().endswith(('.mp4', '.mkv', '.mov')):
-            print(f'{green_text}Video file has been found!{white_text}')
-        else:
-            os.system('cls')
-            print(f'{red_text}File isn\'t a video extension! (e.g.) .mp4 .mkv .mov{white_text}')
-            create_watermark()   
-    else:
-        os.system('cls')
-        print(f'{red_text}Video file doesn\'t exist in this directory!{white_text}')
-        create_watermark()
+    old_filename = video_file_path.rsplit('\\', 1)[-1]
+    old_extension = os.path.splitext(video_file_path)[1]
+    new_filename = old_filename.replace(old_extension, '.mp4')
+    color = style.bcolors()
 
     while True:
         watermark_position = input('''
@@ -53,9 +40,10 @@ Enter preferred position: ''')
                 first_position = 'left'
                 second_position = 'top'
             break
-        else: 
+        else:
             os.system('cls')
-            print(f'{red_text}Choose one of the supported positions!{white_text}')
+            print(f'{color.FAIL}Choose one of the supported positions!{color.ENDC}')
+            continue
 
     while True:
         watermark_size = input('''
@@ -75,22 +63,34 @@ Enter preferred size: ''')
             break
         else:
             os.system('cls')
-            print(f'{red_text}Choose one of the supported sizes!{white_text}')
+            print(f'{color.FAIL}Choose one of the supported sizes!{color.ENDC}')
+            continue
 
-    # Used to rename the new file
-    index= video_file_path.rsplit('\\', 1)[-1]   
-    new_filename = 'watermarked-' + index
-    
     video = mp.VideoFileClip(video_file_path)
-    
-    watermark = (mp.ImageClip('assets/watermark/watermark.png')
-               .set_duration(video.duration)
-               .resize(watermark_size)
-               .margin(right=8, bottom=8, opacity=0)
-               .set_pos((first_position, second_position)))
 
-    # Overlay the watermark clip on the first video clip
+    watermark = (mp.ImageClip(watermark_file_path)
+                 .set_duration(video.duration)
+                 .resize(watermark_size)
+                 .margin(right=8, bottom=8, opacity=0)
+                 .set_pos((first_position, second_position)))
+
     final_video = mp.CompositeVideoClip([video, watermark])
 
-    # Write the result to a file (many options available!)
-    final_video.write_videofile(f'assets/videos/{new_filename}')  # quality can be raised by using: bitrate="20000k"
+    while True:
+        if os.path.isfile(f'assets/videos/watermarked-{new_filename}'):
+            overwrite = input(f'File \'assets/videos/watermarkd-{new_filename}\' already exists. Overwrite ? [y/N] ')
+            if overwrite.upper() == 'Y':
+                final_video.write_videofile(f'assets/videos/watermarked-{new_filename}')
+                print(f'{color.OKGREEN}Overwriting - done{color.ENDC}')
+                break
+            elif overwrite.upper() == 'N':
+                print(f'{color.FAIL}Not overwriting - exiting{color.ENDC}')
+                break
+            else:
+                os.system('cls')
+                print(f'{color.FAIL}Invalid input!{color.ENDC}')
+                continue
+        else:
+            # quality can be raised by using the bitrate parameter e.g. bitrate="20000k"
+            final_video.write_videofile(f'assets/videos/watermarked-{new_filename}')
+            break

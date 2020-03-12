@@ -1,31 +1,22 @@
 '''
 This function gives you the possibility to 
 split videos into multiple parts.
-
-TODO Fix OSError: [WinError 6] The handle is invalid.
 '''
 
 import moviepy.editor as mp
+from scripts import style
 import os
 
-def create_split():
-    video_file_path = input('Enter full path to video file: ')
-    red_text  = '\033[31m'
-    white_text = '\033[0m'
-    green_text = '\033[92m'
 
-    # Make sure that the user provides a video file.
-    if os.path.isfile(video_file_path):
-        if video_file_path.lower().endswith(('.mp4', '.mkv', '.mov')):
-            print(f'{green_text}Video file has been found!{white_text}')
-        else:
-            os.system('cls')
-            print(f'{red_text}File isn\'t a video extension! (e.g.) .mp4 .mkv .mov{white_text}')
-            create_split()   
-    else:
-        os.system('cls')
-        print(f'{red_text}Video file doesn\'t exist in this directory!{white_text}')
-        create_split()
+def create_split(video_file_path):
+    part_duration = 0
+    start_time = [0]
+    end_time = []
+    old_filename = video_file_path.rsplit('\\', 1)[-1]
+    old_extension = os.path.splitext(video_file_path)[1]
+    new_filename = old_filename.replace(old_extension, '.mp4')
+    video = (mp.VideoFileClip(video_file_path))
+    color = style.bcolors()
 
     while True:
         try:
@@ -33,21 +24,11 @@ def create_split():
             break
         except ValueError:
             os.system('cls')
-            print(f'{red_text}Input is invalid!{white_text}')
+            print(f'{color.FAIL}Input is invalid!{color.ENDC}')
+            continue
 
-    # Used to rename the video parts (removes everything before the last forwardslash)
-    index= video_file_path.rsplit('\\', 1)[-1]   
-
-    # Calculate the total time of each video part.
-    video = (mp.VideoFileClip(video_file_path))
     time_per_part = video.duration / video_parts
 
-    # Store the begin and end time of each video part
-    part_duration = 0
-    start_time = [0]
-    end_time = []
-
-    # This loop appends the total time of each video part to the start_time and end_time array
     for _ in range(int(video_parts)):
         part_duration += time_per_part
         start_time.append(round(part_duration, 2))
@@ -56,13 +37,26 @@ def create_split():
     # the last value in the start_time array gets deleted because it's only needed for the end_time array
     del start_time[-1]
 
-    # Give each video part a start and end time with the values that are stored in their arrays
     for part in range(int(video_parts)):
-        new_filename = f'part-{part}-{index}'
-
         video = (mp.VideoFileClip(video_file_path)
-                .subclip((start_time[int(part)]), (end_time[int(part)])))
-        video.write_videofile(new_filename)
+                 .subclip((start_time[int(part)]), (end_time[int(part)])))
+        while True:
+            if os.path.isfile(f'assets/videos/part-{part + 1}-{new_filename}'):
+                overwrite = input(f'File \'assets/videos/part-{part + 1}-{new_filename}\' already exists. Overwrite ? [y/N] ')
+                if overwrite.upper() == 'Y':
+                    video.write_videofile(f'assets/videos/part-{part + 1}-{new_filename}')
+                    print(f'{color.OKGREEN}Overwriting - done{color.ENDC}')
+                    break
+                elif overwrite.upper() == 'N':
+                    print(f'{color.FAIL}Not overwriting - exiting{color.ENDC}')
+                    break
+                else:
+                    os.system('cls')
+                    print(f'{color.FAIL}Invalid input!{color.ENDC}')
+                    continue
+            else:
+                video.write_videofile(f'assets/videos/part-{part + 1}-{new_filename}')
+                break
 
         # close the video to prevent 'OSError: [WinError 6] The handle is invalid'
         video.reader.close()
