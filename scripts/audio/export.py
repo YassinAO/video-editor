@@ -1,5 +1,5 @@
 '''
-This function gives you the possibility to 
+This function gives you the possibility to
 export the video audio to a mp3 file.
 '''
 

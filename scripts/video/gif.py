@@ -31,7 +31,7 @@ def create_gif(video_file_path):
             break
         except ValueError:
             os.system('cls')
-            print(f'{color.FAIL}Input is invalid!{color.ENDC}')
+            print(f'{color.FAIL}Input is invalid - numbers only!{color.ENDC}')
             continue
 
     while True:
@@ -44,16 +44,14 @@ def create_gif(video_file_path):
             break
         except ValueError:
             os.system('cls')
-            print(f'{color.FAIL}Input is invalid!{color.ENDC}')
+            print(f'{color.FAIL}Input is invalid - numbers only!{color.ENDC}')
             continue
 
     while True:
-        gif_size = input('''
-currently supported sizes
-small
-medium
-large
-Enter preferred size: ''')
+        gif_size = input(f'''
+Currently supported sizes
+small\nmedium\nlarge
+Enter preferred size {color.OKBLUE}(e.g. small){color.ENDC}: ''')
 
         if gif_size in size_support:
             if gif_size == 'small':
@@ -69,23 +67,24 @@ Enter preferred size: ''')
             continue
 
     while True:
-        gif_type = input('''
-currently supported types
-normal
-loop
-Enter preferred type: ''')
+        gif_type = input(f'''
+Currently supported types
+normal\nloop
+Enter preferred type {color.OKBLUE}(e.g. normal){color.ENDC}: ''')
 
         if gif_type in type_support:
             if gif_type == 'normal':
                 video = (mp.VideoFileClip(video_file_path)
                          .subclip(start_time, end_time)
                          .resize(gif_size))
+                new_filename = 'normal-' + new_filename
 
             elif gif_type == 'loop':
                 video = (mp.VideoFileClip(video_file_path)
                          .subclip(start_time, end_time)
                          .resize(gif_size)
                          .fx(time_symetrize))
+                new_filename = 'loop-' + new_filename
             break
         else:
             os.system('cls')

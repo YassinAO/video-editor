@@ -16,18 +16,18 @@ def create_concatenation():
 
     while True:
         try:
-            video_amount = int(input('Enter amount of videos: '))
+            video_amount = int(input(f'Enter amount of videos {color.OKBLUE}(e.g. 2){color.ENDC}: '))
             break
         except ValueError:
             os.system('cls')
-            print(f'{color.FAIL}Input is invalid!{color.ENDC}')
+            print(f'{color.FAIL}Input is invalid - numbers only!{color.ENDC}')
             continue
 
     number = 0
     for _ in range(int(video_amount)):
         number += 1
         while True:
-            video_file_path = input(f'Enter full path to video file {str(number)}: ')
+            video_file_path = input(f'Enter full path to video file {str(number)} {color.OKBLUE}(e.g. C:/Users/JohnDoe/Videos/example.mp4){color.ENDC}: ')
             if os.path.exists(video_file_path):
                 if video_file_path.lower().endswith(('.mp4', '.mkv', '.mov')):
                     all_video_file_paths.append(video_file_path)
@@ -36,7 +36,7 @@ def create_concatenation():
                     break
                 else:
                     os.system('cls')
-                    print(f'{color.FAIL}File isn\'t a video extension! (e.g.) .mp4 .mkv .mov{color.ENDC}')
+                    print(f'{color.FAIL}File isn\'t a video extension! (e.g. mp4 mkv mov){color.ENDC}')
                     continue
             else:
                 os.system('cls')
