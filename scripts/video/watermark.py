@@ -18,13 +18,10 @@ def create_watermark(video_file_path, watermark_file_path):
     color = style.bcolors()
 
     while True:
-        watermark_position = input('''
-currently supported positions
-bottom-right
-bottom-left
-top-right
-top-left
-Enter preferred position: ''')
+        watermark_position = input(f'''
+Currently supported positions
+bottom-right\nbottom-left\ntop-right\ntop-left
+Enter preferred position {color.OKBLUE}(e.g. bottom-right){color.ENDC}: ''')
 
         if watermark_position in position_support:
             if watermark_position == 'bottom-right':
@@ -46,12 +43,10 @@ Enter preferred position: ''')
             continue
 
     while True:
-        watermark_size = input('''
-currently supported sizes
-small
-medium
-large
-Enter preferred size: ''')
+        watermark_size = input(f'''
+Currently supported sizes
+small\nmedium\nlarge
+Enter preferred size {color.OKBLUE}(e.g. small){color.ENDC}: ''')
 
         if watermark_size in size_support:
             if watermark_size == 'small':
@@ -71,7 +66,7 @@ Enter preferred size: ''')
     watermark = (mp.ImageClip(watermark_file_path)
                  .set_duration(video.duration)
                  .resize(watermark_size)
-                 .margin(right=8, bottom=8, opacity=0)
+                 .margin(left=8, right=8, top=8, bottom=8, opacity=0)
                  .set_pos((first_position, second_position)))
 
     final_video = mp.CompositeVideoClip([video, watermark])

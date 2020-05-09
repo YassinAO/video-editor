@@ -20,11 +20,11 @@ def create_split(video_file_path):
 
     while True:
         try:
-            video_parts = int(input('Enter amount of video parts: '))
+            video_parts = int(input(f'Enter amount of video parts {color.OKBLUE}(e.g. 2){color.ENDC}: '))
             break
         except ValueError:
             os.system('cls')
-            print(f'{color.FAIL}Input is invalid!{color.ENDC}')
+            print(f'{color.FAIL}Input is invalid - numbers only!{color.ENDC}')
             continue
 
     time_per_part = video.duration / video_parts

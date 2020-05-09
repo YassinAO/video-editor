@@ -14,12 +14,10 @@ def create_convertion(video_file_path):
     color = style.bcolors()
 
     while True:
-        new_extension = input('''
-currently supported extensions
-mp4
-mkv
-mov
-Enter preferred extension: ''')
+        new_extension = input(f'''
+Currently supported extensions
+mp4\nmkv\nmov
+Enter preferred extension {color.OKBLUE}(e.g. mp4){color.ENDC}: ''')
 
         if new_extension in extension_support:
             os.system(f'ffmpeg -i {video_file_path} -codec copy assets/videos/{new_filename}.{new_extension}')

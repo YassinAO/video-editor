@@ -1,5 +1,5 @@
 '''
-This function gives you the possibility to 
+This function gives you the possibility to
 increase or decrease the audio volume.
 '''
 
@@ -12,11 +12,10 @@ def manipulate_audio(video_file_path):
     base_volume = 1
 
     while True:
-        audio_type = input('''
-currently supported audio options
-increase
-decrease
-Enter preferred audio option: ''')
+        audio_type = input(f'''
+Currently supported audio options
+increase\ndecrease
+Enter preferred audio option {color.OKBLUE}(e.g. increase){color.ENDC}: ''')
 
         if audio_type in type_support:
             break
@@ -26,9 +25,9 @@ Enter preferred audio option: ''')
             continue
 
     while True:
-        audio_volume = input('''
+        audio_volume = input(f'''
 Enter a volume percentage number between 1 and 100
-Enter preferred increase/decrease volume percentage: ''')
+Enter preferred increase/decrease volume percentage {color.OKBLUE}(e.g. 75){color.ENDC}: ''')
 
         if audio_volume in str(volume_support):
             if audio_type == 'increase':
