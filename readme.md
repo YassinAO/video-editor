@@ -1,4 +1,7 @@
-# Python Video-Editor
+# This repo is outdated and one of my first projects in Python.
+# Check out my new and better version of this project: https://github.com/YassinAO/python_cli_video_editor 
+
+## Python Video-Editor
 
 ## About
 This video-editor has many functionalities that can be used to edit/manipulate your videos.
